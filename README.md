@@ -26,52 +26,41 @@ python main.py
 
 On first run, the app creates a `students.db` file in the same folder.
 
-## Usage
+## Screenshots & Output
 
-When you start the program, you will see this menu:
+### 1. Main Menu
+![Main Menu](Output/Main%20Menu.PNG)
 
-```
-==================================================
-  Student Record Management System
-==================================================
-  1. Add New Student
-  2. View All Students
-  3. Search Student Records
-  4. Update Student Details
-  5. Delete Student Record
-  6. Exit
---------------------------------------------------
-Enter choice (1-6):
-```
+### 2. Adding a New Student
+![Add Student](Output/Additiion%20Of%20Student.PNG)
 
-Type a number and follow the prompts.
+### 3. Viewing All Students
+![View All Students](Output/Viewing%20All%20Students.PNG)
 
-### Example: adding a student
+### 4. Searching Records
+![Search Records](Output/Searching.PNG)
 
-```
-Enter Student ID (e.g. S101): S101
-Enter Full Name: Asha Nair
-Enter Email Address: asha@example.com
-Enter Course / Major: Computer Science
-Enter Current Semester (1-8): 3
-Enter CGPA (0.00 to 10.00): 8.75
-```
+### 5. Updating a Student Record
+![Update Record](Output/Update%20Record.PNG)
 
-### Example: viewing students
+### 6. Deleting a Record
+![Delete Record](Output/Deletion.PNG)
 
-```
-+------------+------------------+------------------------+------------------+----------+--------+
-| ID         | Name             | Email                  | Course           | Semester |  CGPA  |
-+------------+------------------+------------------------+------------------+----------+--------+
-| S101       | Asha Nair        | asha@example.com       | Computer Science |    3     |  8.75  |
-+------------+------------------+------------------------+------------------+----------+--------+
-Total Records: 1
-```
+### 7. Exiting the Application
+![Exit](Output/Exit.PNG)
 
 ## Project Structure
 
 ```
 .
+├── Output/                          # Program output screenshots
+│   ├── Main Menu.PNG
+│   ├── Additiion Of Student.PNG
+│   ├── Viewing All Students.PNG
+│   ├── Searching.PNG
+│   ├── Update Record.PNG
+│   ├── Deletion.PNG
+│   └── Exit.PNG
 ├── main.py                          # Command-line interface and menu loop
 ├── database.py                      # SQLite database operations (DatabaseManager)
 ├── models.py                        # Student data model
@@ -80,8 +69,9 @@ Total Records: 1
 └── IMPLEMENTATION_AND_TECHNOLOGIES.md # Code walkthrough and technology stack explanation
 ```
 
-| File | Purpose |
-|------|---------|
+| File / Folder | Purpose |
+|---------------|---------|
+| `Output/` | Visual screenshots demonstrating CLI outputs for all operations |
 | `main.py` | Shows the menu, reads user input, validates it, and prints formatted results |
 | `database.py` | Creates the `students` table and handles add, get, list, search, update, and delete |
 | `models.py` | Defines the `Student` class and converts it to and from database rows |

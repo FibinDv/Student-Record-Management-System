@@ -254,6 +254,9 @@ CREATE TABLE IF NOT EXISTS students (
 
 ### 7.1 Main Menu
 When launched, the program greets you with a simple numerical menu:
+
+![Main Menu](Output/Main%20Menu.PNG)
+
 ```text
 ==================================================
   Student Record Management System
@@ -269,6 +272,8 @@ Enter choice (1-6):
 ```
 
 ### 7.2 Adding a Student
+![Add Student](Output/Additiion%20Of%20Student.PNG)
+
 ```text
 ==================================================
   Add New Student
@@ -284,6 +289,8 @@ Enter CGPA (0.00 to 10.00): 8.75
 ```
 
 ### 7.3 Viewing the Records Table
+![View All Students](Output/Viewing%20All%20Students.PNG)
+
 ```text
 ==================================================
   All Student Records
@@ -299,6 +306,9 @@ Total Records: 1
 
 ### 7.4 Searching for a Student
 You can search by ID, Name, or Course keyword:
+
+![Search Records](Output/Searching.PNG)
+
 ```text
 ==================================================
   Search Student Records
@@ -317,6 +327,9 @@ Total Records: 1
 
 ### 7.5 Updating a Record (Keep Existing Values)
 Press `[Enter]` to keep an existing value, or type new data:
+
+![Update Record](Output/Update%20Record.PNG)
+
 ```text
 ==================================================
   Update Student Record
@@ -335,6 +348,8 @@ CGPA [8.75]: 9.10
 ```
 
 ### 7.6 Deleting a Record with Confirmation
+![Delete Record](Output/Deletion.PNG)
+
 ```text
 ==================================================
   Delete Student Record
@@ -345,6 +360,13 @@ Found Record: Asha Nair | Course: Software Engineering | CGPA: 9.10
 Are you sure you want to delete this record? (y/N): y
 
   [✓] Student 'Asha Nair' (ID: S101) has been deleted.
+```
+
+### 7.7 Exiting the Application
+![Exit](Output/Exit.PNG)
+
+```text
+Exiting Student Record Management System. Goodbye!
 ```
 
 ---
