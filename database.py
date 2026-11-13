@@ -21,7 +21,7 @@ class DatabaseManager:
         return sqlite3.connect(self.db_path)
 
     def init_db(self):
-        """Create the students table if it does not exist."""
+        """Create the students table if it does not exist, and migrate older columns if needed."""
         with self._get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute(
@@ -32,10 +32,15 @@ class DatabaseManager:
                     email TEXT NOT NULL,
                     course TEXT NOT NULL,
                     semester INTEGER NOT NULL,
-                    gpa REAL NOT NULL
+                    cgpa REAL NOT NULL
                 )
                 """
             )
+            # Automatic column migration if existing DB used 'gpa'
+            cursor.execute("PRAGMA table_info(students)")
+            existing_columns = [col[1] for col in cursor.fetchall()]
+            if "gpa" in existing_columns and "cgpa" not in existing_columns:
+                cursor.execute("ALTER TABLE students RENAME COLUMN gpa TO cgpa")
             conn.commit()
 
     def add_student(self, student):
@@ -45,7 +50,7 @@ class DatabaseManager:
             try:
                 cursor.execute(
                     """
-                    INSERT INTO students (student_id, name, email, course, semester, gpa)
+                    INSERT INTO students (student_id, name, email, course, semester, cgpa)
                     VALUES (?, ?, ?, ?, ?, ?)
                     """,
                     student.to_tuple(),
@@ -62,7 +67,7 @@ class DatabaseManager:
             cursor = conn.cursor()
             cursor.execute(
                 """
-                SELECT student_id, name, email, course, semester, gpa
+                SELECT student_id, name, email, course, semester, cgpa
                 FROM students
                 WHERE student_id = ?
                 """,
@@ -79,7 +84,7 @@ class DatabaseManager:
             cursor = conn.cursor()
             cursor.execute(
                 """
-                SELECT student_id, name, email, course, semester, gpa
+                SELECT student_id, name, email, course, semester, cgpa
                 FROM students
                 ORDER BY student_id ASC
                 """
@@ -94,7 +99,7 @@ class DatabaseManager:
             cursor = conn.cursor()
             cursor.execute(
                 """
-                SELECT student_id, name, email, course, semester, gpa
+                SELECT student_id, name, email, course, semester, cgpa
                 FROM students
                 WHERE student_id LIKE ? OR name LIKE ? OR course LIKE ?
                 ORDER BY student_id ASC
@@ -111,7 +116,7 @@ class DatabaseManager:
             cursor.execute(
                 """
                 UPDATE students
-                SET name = ?, email = ?, course = ?, semester = ?, gpa = ?
+                SET name = ?, email = ?, course = ?, semester = ?, cgpa = ?
                 WHERE student_id = ?
                 """,
                 (
@@ -119,7 +124,7 @@ class DatabaseManager:
                     student.email,
                     student.course,
                     student.semester,
-                    student.gpa,
+                    student.cgpa,
                     student.student_id,
                 ),
             )
@@ -139,4 +144,3 @@ class DatabaseManager:
             )
             conn.commit()
             return cursor.rowcount > 0
-

@@ -4,13 +4,13 @@
 class Student:
     """Represents an individual student record."""
 
-    def __init__(self, student_id, name, email, course, semester, gpa):
+    def __init__(self, student_id, name, email, course, semester, cgpa):
         self.student_id = str(student_id).strip()
         self.name = str(name).strip()
         self.email = str(email).strip()
         self.course = str(course).strip()
         self.semester = int(semester)
-        self.gpa = float(gpa)
+        self.cgpa = float(cgpa)
 
     @classmethod
     def from_row(cls, row):
@@ -21,7 +21,7 @@ class Student:
             email=row[2],
             course=row[3],
             semester=row[4],
-            gpa=row[5],
+            cgpa=row[5],
         )
 
     def to_tuple(self):
@@ -32,9 +32,8 @@ class Student:
             self.email,
             self.course,
             self.semester,
-            self.gpa,
+            self.cgpa,
         )
 
     def __str__(self):
-        return f"Student(ID={self.student_id}, Name={self.name}, Course={self.course}, GPA={self.gpa})"
-
+        return f"Student(ID={self.student_id}, Name={self.name}, Course={self.course}, CGPA={self.cgpa})"

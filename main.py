@@ -53,7 +53,7 @@ def prompt_int(prompt_text, min_val=1, max_val=20, default=None):
             print("  [!] Please enter a valid whole number.")
 
 
-def prompt_float(prompt_text, min_val=0.0, max_val=4.0, default=None):
+def prompt_float(prompt_text, min_val=0.0, max_val=10.0, default=None):
     """Prompt the user for a valid decimal number within a range."""
     while True:
         if default is not None:
@@ -73,7 +73,7 @@ def prompt_float(prompt_text, min_val=0.0, max_val=4.0, default=None):
                 continue
             return val
         except ValueError:
-            print("  [!] Please enter a valid number (e.g., 3.75).")
+            print("  [!] Please enter a valid number (e.g., 8.75).")
 
 
 def display_students_table(students):
@@ -88,18 +88,18 @@ def display_students_table(students):
     col_email = max(max(len(s.email) for s in students), 22)
     col_course = max(max(len(s.course) for s in students), 16)
     col_sem = 8
-    col_gpa = 6
+    col_cgpa = 6
 
     separator = (
         f"+-{'-' * col_id}-+-{'-' * col_name}-+-{'-' * col_email}-+-"
-        f"{'-' * col_course}-+-{'-' * col_sem}-+-{'-' * col_gpa}-+"
+        f"{'-' * col_course}-+-{'-' * col_sem}-+-{'-' * col_cgpa}-+"
     )
 
     print("\n" + separator)
     print(
         f"| {'ID'.ljust(col_id)} | {'Name'.ljust(col_name)} | "
         f"{'Email'.ljust(col_email)} | {'Course'.ljust(col_course)} | "
-        f"{'Semester'.center(col_sem)} | {'GPA'.center(col_gpa)} |"
+        f"{'Semester'.center(col_sem)} | {'CGPA'.center(col_cgpa)} |"
     )
     print(separator)
 
@@ -107,7 +107,7 @@ def display_students_table(students):
         print(
             f"| {s.student_id.ljust(col_id)} | {s.name.ljust(col_name)} | "
             f"{s.email.ljust(col_email)} | {s.course.ljust(col_course)} | "
-            f"{str(s.semester).center(col_sem)} | {f'{s.gpa:.2f}'.center(col_gpa)} |"
+            f"{str(s.semester).center(col_sem)} | {f'{s.cgpa:.2f}'.center(col_cgpa)} |"
         )
     print(separator)
     print(f"Total Records: {len(students)}\n")
@@ -127,8 +127,8 @@ def add_student_view(db):
     name = prompt_non_empty("Enter Full Name")
     email = prompt_non_empty("Enter Email Address")
     course = prompt_non_empty("Enter Course / Major")
-    semester = prompt_int("Enter Current Semester (1-12)", min_val=1, max_val=12)
-    gpa = prompt_float("Enter GPA (0.00 to 4.00)", min_val=0.0, max_val=4.0)
+    semester = prompt_int("Enter Current Semester (1-8)", min_val=1, max_val=8)
+    cgpa = prompt_float("Enter CGPA (0.00 to 10.00)", min_val=0.0, max_val=10.0)
 
     new_student = Student(
         student_id=student_id,
@@ -136,7 +136,7 @@ def add_student_view(db):
         email=email,
         course=course,
         semester=semester,
-        gpa=gpa,
+        cgpa=cgpa,
     )
 
     try:
@@ -178,8 +178,8 @@ def update_student_view(db):
     name = prompt_non_empty("Full Name", default=student.name)
     email = prompt_non_empty("Email", default=student.email)
     course = prompt_non_empty("Course", default=student.course)
-    semester = prompt_int("Semester", min_val=1, max_val=12, default=student.semester)
-    gpa = prompt_float("GPA", min_val=0.0, max_val=4.0, default=student.gpa)
+    semester = prompt_int("Semester", min_val=1, max_val=8, default=student.semester)
+    cgpa = prompt_float("CGPA", min_val=0.0, max_val=10.0, default=student.cgpa)
 
     updated_student = Student(
         student_id=student.student_id,
@@ -187,7 +187,7 @@ def update_student_view(db):
         email=email,
         course=course,
         semester=semester,
-        gpa=gpa,
+        cgpa=cgpa,
     )
 
     if db.update_student(updated_student):
@@ -206,7 +206,7 @@ def delete_student_view(db):
         print(f"\n  [!] No student found with ID '{student_id}'.")
         return
 
-    print(f"\nFound Record: {student.name} | Course: {student.course} | GPA: {student.gpa:.2f}")
+    print(f"\nFound Record: {student.name} | Course: {student.course} | CGPA: {student.cgpa:.2f}")
     confirm = input("Are you sure you want to delete this record? (y/N): ").strip().lower()
 
     if confirm == "y" or confirm == "yes":
@@ -253,4 +253,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
